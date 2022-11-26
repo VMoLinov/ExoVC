@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:alpha="0.8"
+            android:textColor="?attr/colorAccent"
             android:background="@drawable/shape_edit_text"
             android:padding="16dp"
             android:text="@string/edit_text_enter_text_here"

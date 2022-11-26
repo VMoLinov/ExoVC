@@ -12,7 +12,7 @@ class DraggableEditText(context: Context, attrs: AttributeSet) :
 
     var dX = 0f
     var dY = 0f
-    var lastAction = 0
+    var lastActionTime = System.currentTimeMillis()
 
     init {
         setOnTouchListener(TouchListener())
@@ -34,7 +34,7 @@ class DraggableEditText(context: Context, attrs: AttributeSet) :
                 MotionEvent.ACTION_DOWN -> {
                     dX = v.x - event.rawX
                     dY = v.y - event.rawY
-                    lastAction = MotionEvent.ACTION_DOWN
+                    lastActionTime = System.currentTimeMillis()
                 }
                 MotionEvent.ACTION_MOVE -> {
                     val newY = event.rawY + dY
@@ -49,10 +49,9 @@ class DraggableEditText(context: Context, attrs: AttributeSet) :
                         (newX > maxWidth) -> maxWidth
                         else -> newX
                     }
-                    lastAction = MotionEvent.ACTION_MOVE
                 }
                 MotionEvent.ACTION_UP -> {
-                    if (lastAction == MotionEvent.ACTION_DOWN) {
+                    if (lastActionTime + 1000L > System.currentTimeMillis()) {
                         v.performClick()
                         v.requestFocus()
                         return false
