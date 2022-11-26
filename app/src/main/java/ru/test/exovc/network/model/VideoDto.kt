@@ -1,4 +1,4 @@
-package ru.test.exovc.network
+package ru.test.exovc.network.model
 
 import com.google.gson.annotations.SerializedName
 

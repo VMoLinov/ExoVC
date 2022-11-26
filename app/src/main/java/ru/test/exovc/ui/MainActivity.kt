@@ -1,7 +1,8 @@
-package ru.test.exovc
+package ru.test.exovc.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import ru.test.exovc.R
 import ru.test.exovc.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {

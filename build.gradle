@@ -10,6 +10,7 @@ ext {
     adapterDelegatesVersion = "4.3.2"
     retrofitVersion = "2.9.0"
     glideVersion = "4.14.2"
+    daggerVersion = "2.44"
 
     appcompat = "androidx.appcompat:appcompat:1.5.1"
     coreKtx = "androidx.core:core-ktx:1.9.0"
@@ -24,6 +25,8 @@ ext {
     converterGson = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     glide = "com.github.bumptech.glide:glide:$glideVersion"
     glideCompiler = "com.github.bumptech.glide:compiler:$glideVersion"
+    dagger = "com.google.dagger:dagger:$daggerVersion"
+    daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
     exoPlayer = "com.google.android.exoplayer:exoplayer:2.18.2"
     jUnit = "junit:junit:4.13.2"
     jUnitAndroid = "androidx.test.ext:junit:1.1.4"

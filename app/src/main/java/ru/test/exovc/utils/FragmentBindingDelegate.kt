@@ -1,4 +1,4 @@
-package ru.test.exovc
+package ru.test.exovc.utils
 
 import android.view.View
 import androidx.fragment.app.Fragment

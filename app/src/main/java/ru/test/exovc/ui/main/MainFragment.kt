@@ -6,51 +6,46 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
+import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.Player
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import ru.test.exovc.App
 import ru.test.exovc.R
 import ru.test.exovc.databinding.FragmentMainBinding
-import ru.test.exovc.viewBinding
+import ru.test.exovc.ui.views.AppPlayer
+import ru.test.exovc.utils.viewBinding
+import ru.test.exovc.viewmodel.MainViewModel
 
 class MainFragment : Fragment(R.layout.fragment_main), Player.Listener {
 
     private val binding by viewBinding { FragmentMainBinding.bind(it) }
-    private val adapter by lazy { MainAdapter(viewModel::clickItem) }
-    private lateinit var viewModel: MainViewModel
-    private lateinit var player: ExoPlayer
+    private val adapter by lazy { MainAdapter(Glide.with(binding.root), viewModel::clickItem) }
+    private val appPlayer by lazy { AppPlayer(binding.styledPlayerView) }
+    private val viewModel by lazy {
+        ViewModelProvider(this, App.getComponent().viewModelFactory())[MainViewModel::class.java]
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        lifecycleScope.launch {
-            viewModel.data.collect { adapter.updateList(it) }
-            viewModel.activeVideo.collectLatest { video ->
-                video?.let {
-                    player.setMediaItem(MediaItem.fromUri(it.fileUrl))
-                }
-            }
-        }
+        collectData()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        player = ExoPlayer.Builder(requireContext()).build()
-        player.repeatMode = Player.REPEAT_MODE_ONE
-        binding.player.player = player
-        player.prepare()
-        player.play()
-        player.addListener(this@MainFragment)
-        binding.recyclerView.adapter = adapter.delegationAdapter
+        bindViews()
     }
 
-    override fun onPlaybackStateChanged(playbackState: Int) {
-        super.onPlaybackStateChanged(playbackState)
-        if (playbackState == Player.STATE_READY) {
-            binding.player.isVisible = true
+    private fun collectData() {
+        lifecycleScope.launch {
+            viewModel.data.collect { adapter.updateList(it) }
+            viewModel.activeVideo.collectLatest { appPlayer.play(it?.fileUrl) }
         }
+    }
+
+    private fun bindViews() = with(binding) {
+        adapter.attachToRecyclerView(recyclerView)
+        textButton.setOnClickListener { editText.isVisible = !editText.isVisible }
     }
 
     companion object {

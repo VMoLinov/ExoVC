@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ExoVC</string>
+    <string name="text_button">text</string>
+    <string name="edit_text_enter_text_here">Enter text here</string>
 </resources>

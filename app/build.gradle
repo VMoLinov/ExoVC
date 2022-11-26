@@ -51,6 +51,8 @@ dependencies {
     implementation rootProject.ext.converterGson
     implementation rootProject.ext.glide
     kapt rootProject.ext.glideCompiler
+    implementation rootProject.ext.dagger
+    kapt rootProject.ext.daggerCompiler
     implementation rootProject.ext.exoPlayer
     testImplementation rootProject.ext.jUnit
     androidTestImplementation rootProject.ext.jUnitAndroid

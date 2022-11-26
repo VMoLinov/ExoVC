@@ -10,7 +10,7 @@
         android:id="@+id/shapeFrameLayout"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:background="@drawable/shape"
+        android:background="@drawable/shape_recycler_item"
         android:elevation="1dp"
         android:visibility="gone"
         tools:visibility="visible" />
